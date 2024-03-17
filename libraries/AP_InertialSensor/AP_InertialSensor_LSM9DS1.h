@@ -1,7 +1,7 @@
 #pragma once
 
 #include <AP_HAL/AP_HAL.h>
-#include <AP_HAL/SPIDevice.h>
+#include <AP_HAL/Device.h>
 
 #include "AP_InertialSensor.h"
 #include "AP_InertialSensor_Backend.h"
@@ -17,11 +17,11 @@ public:
     bool update() override;
 
     static AP_InertialSensor_Backend *probe(AP_InertialSensor &imu,
-                                            AP_HAL::OwnPtr<AP_HAL::SPIDevice> dev,
+                                            AP_HAL::OwnPtr<AP_HAL::Device> dev,
                                             enum Rotation rotation);
 private:
     AP_InertialSensor_LSM9DS1(AP_InertialSensor &imu,
-                              AP_HAL::OwnPtr<AP_HAL::SPIDevice> dev,
+                              AP_HAL::OwnPtr<AP_HAL::Device> dev,
                               int drdy_pin_num_xg,
                               enum Rotation rotation);
 
@@ -62,8 +62,8 @@ private:
     void        _dump_registers();
     #endif
 
-    AP_HAL::OwnPtr<AP_HAL::SPIDevice> _dev;
-    AP_HAL::Semaphore *_spi_sem;
+    AP_HAL::OwnPtr<AP_HAL::Device> _dev;
+    AP_HAL::Semaphore *_sem;
     AP_HAL::DigitalSource * _drdy_pin_xg;
     float _gyro_scale;
     float _accel_scale;
